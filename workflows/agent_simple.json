@@ -36,7 +36,10 @@
           "systemMessage": "Tu es l'assistant client de Pieces Auto Dakar IA, vendeur en ligne de pieces\ndetachees automobiles a Dakar. Tu reponds en francais, poliment et\nbrievement. Les prix sont en FCFA.\nTu ne donnes jamais un prix, une disponibilite ou une compatibilite sans\nl'avoir lu avec un outil. Si l'information n'existe pas dans les tables,\ndis-le et propose de transmettre la demande a un conseiller.\nSi la marque, le modele ou l'annee du vehicule manque, demande-les avant\nde chercher.",
           "maxIterations": 10
         }
-      }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
     },
     {
       "id": "cc54dcf0-23d1-4bd6-ba54-b360a55bcda1",
@@ -259,9 +262,9 @@
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "f165b3ef-0c17-42ba-b810-17dc67b1318c",
+  "versionId": "897c0863-905d-49ba-8a1f-c35c2163b757",
   "activeVersionId": null,
-  "versionCounter": 1,
+  "versionCounter": 3,
   "triggerCount": 0,
   "sourceWorkflowId": null,
   "tags": [],
