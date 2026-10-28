@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-28T12:52:16.640Z",
+  "updatedAt": "2026-10-28T16:33:01.000Z",
   "createdAt": "2026-10-28T12:52:16.640Z",
   "id": "Wh8CTFya2xm9zIBS",
   "name": "Pieces Auto Dakar IA - Equipe d'agents",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -18,7 +18,12 @@
       ],
       "webhookId": "2f415af3-82d1-4427-a0a6-80977980943d",
       "parameters": {
-        "options": {}
+        "public": true,
+        "mode": "webhook",
+        "authentication": "none",
+        "options": {
+          "allowedOrigins": "*"
+        }
       }
     },
     {
@@ -37,7 +42,7 @@
           "maxIterations": 8
         }
       },
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 5000
     },
@@ -51,13 +56,13 @@
         260
       ],
       "parameters": {
-        "modelName": "models/gemini-2.5-flash",
+        "modelName": "models/gemini-3.5-flash",
         "options": {}
       },
       "credentials": {
         "googlePalmApi": {
-          "id": "JPXpDfztNGcgstVO",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "W7JmV5oeRt8FzeVt",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
@@ -89,7 +94,7 @@
           "maxIterations": 10
         }
       },
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 5000
     },
@@ -110,7 +115,7 @@
           "maxIterations": 10
         }
       },
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 5000
     },
@@ -127,11 +132,11 @@
         "toolDescription": "Donne l'etat d'une commande a partir de son numero (format CMD-0000) et enregistre les nouvelles commandes.",
         "text": "={{ $fromAI('demande', 'La demande du client a traiter, avec toutes les informations utiles', 'string') }}",
         "options": {
-          "systemMessage": "Tu traites les commandes de Pieces Auto Dakar IA.\nPour un suivi, lis la commande avec lire_commande et donne son statut,\nsa ville et sa date. Si le numero n'existe pas, reponds : COMMANDE\nINTROUVABLE.\nN'invente jamais un statut.",
+          "systemMessage": "Tu traites les commandes de Pieces Auto Dakar IA.\nPour un suivi, lis la commande avec lire_commande et donne son statut,\nsa ville et sa date. Si le numero n'existe pas, reponds : COMMANDE\nINTROUVABLE.\nN'invente jamais un statut.\nPour une nouvelle commande, utilise preparer_commande. Cet outil est soumis\na l'accord du gerant. S'il est refuse, reponds : COMMANDE NON RETENUE, un\nconseiller rappellera le client.",
           "maxIterations": 5
         }
       },
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 5000
     },
@@ -145,13 +150,13 @@
         500
       ],
       "parameters": {
-        "modelName": "models/gemini-2.5-flash-lite",
+        "modelName": "models/gemini-3.5-flash-lite",
         "options": {}
       },
       "credentials": {
         "googlePalmApi": {
-          "id": "JPXpDfztNGcgstVO",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "W7JmV5oeRt8FzeVt",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
@@ -246,13 +251,13 @@
         500
       ],
       "parameters": {
-        "modelName": "models/gemini-2.5-flash-lite",
+        "modelName": "models/gemini-3.5-flash-lite",
         "options": {}
       },
       "credentials": {
         "googlePalmApi": {
-          "id": "JPXpDfztNGcgstVO",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "W7JmV5oeRt8FzeVt",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
@@ -332,13 +337,13 @@
         500
       ],
       "parameters": {
-        "modelName": "models/gemini-2.5-flash-lite",
+        "modelName": "models/gemini-3.5-flash-lite",
         "options": {}
       },
       "credentials": {
         "googlePalmApi": {
-          "id": "JPXpDfztNGcgstVO",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "W7JmV5oeRt8FzeVt",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
@@ -373,6 +378,157 @@
           ]
         },
         "returnAll": true
+      }
+    },
+    {
+      "id": "3766d898-82ba-4b2b-8930-83908bb41443",
+      "name": "Validation gerant",
+      "type": "n8n-nodes-base.telegramHitlTool",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        500
+      ],
+      "webhookId": "c153d63c-7019-4e75-86ee-dfda4376cf2c",
+      "parameters": {
+        "chatId": "9036714073",
+        "message": "=Nouvelle commande a valider :\n{{ JSON.stringify($tool.parameters, null, 2) }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "Approuver",
+            "disapproveLabel": "Refuser"
+          }
+        },
+        "options": {}
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "PipodhzVj33rziLu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "id": "226005b0-b319-49f6-8e39-0026a080f8dd",
+      "name": "preparer_commande",
+      "type": "n8n-nodes-base.dataTableTool",
+      "typeVersion": 1.1,
+      "position": [
+        1500,
+        740
+      ],
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Enregistre une nouvelle commande. Necessite l'accord du gerant.",
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "igCrJ2KAkU3VkF53",
+          "cachedResultName": "commandes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero": "=CMD-{{ $now.toFormat('yyMMddHHmmss') }}",
+            "client": "={{ $fromAI('client', 'Nom complet du client', 'string') }}",
+            "telephone": "={{ $fromAI('telephone', 'Telephone du client, chiffres seulement', 'number') }}",
+            "ref_piece": "={{ $fromAI('ref_piece', 'Reference de la piece, ex. AM-206-01', 'string') }}",
+            "quantite": "={{ $fromAI('quantite', 'Nombre de pieces commandees', 'number') }}",
+            "ville": "={{ $fromAI('ville', 'Ville de livraison', 'string') }}",
+            "statut": "validee",
+            "date_commande": "={{ $now.toISODate() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero",
+              "displayName": "numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "client",
+              "displayName": "client",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ref_piece",
+              "displayName": "ref_piece",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "quantite",
+              "displayName": "quantite",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "montant_fcfa",
+              "displayName": "montant_fcfa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_commande",
+              "displayName": "date_commande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
       }
     }
   ],
@@ -530,6 +686,28 @@
           }
         ]
       ]
+    },
+    "preparer_commande": {
+      "ai_tool": [
+        [
+          {
+            "node": "Validation gerant",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validation gerant": {
+      "ai_tool": [
+        [
+          {
+            "node": "agent_commandes",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -539,10 +717,10 @@
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "5c0b0202-103a-4ee9-91a8-a3142f802fdb",
-  "activeVersionId": null,
-  "versionCounter": 4,
-  "triggerCount": 0,
+  "versionId": "e9181397-43c1-47d5-af51-42389cac0f2f",
+  "activeVersionId": "e9181397-43c1-47d5-af51-42389cac0f2f",
+  "versionCounter": 9,
+  "triggerCount": 1,
   "sourceWorkflowId": null,
   "tags": [],
   "shared": [

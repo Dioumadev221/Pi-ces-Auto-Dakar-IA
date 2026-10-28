@@ -37,7 +37,7 @@
           "maxIterations": 10
         }
       },
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 5000
     },
@@ -51,13 +51,13 @@
         240
       ],
       "parameters": {
-        "modelName": "models/gemini-2.5-flash",
+        "modelName": "models/gemini-3.5-flash",
         "options": {}
       },
       "credentials": {
         "googlePalmApi": {
-          "id": "JPXpDfztNGcgstVO",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "W7JmV5oeRt8FzeVt",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
@@ -262,9 +262,9 @@
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "897c0863-905d-49ba-8a1f-c35c2163b757",
+  "versionId": "348b907c-d1a4-4f65-aa6f-d97c275d2f61",
   "activeVersionId": null,
-  "versionCounter": 3,
+  "versionCounter": 6,
   "triggerCount": 0,
   "sourceWorkflowId": null,
   "tags": [],
