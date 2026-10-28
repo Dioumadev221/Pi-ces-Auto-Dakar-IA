@@ -1,4 +1,4 @@
-# Teranga Pièces Auto — assistant de chat multi-agents (n8n)
+# Pièces Auto Dakar IA — assistant de chat multi-agents (n8n)
 
 TP « Orchestration d'agents IA en low-code pour une PME de pièces auto ».
 
