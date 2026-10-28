@@ -13,7 +13,7 @@ par le gérant sur Telegram avant d'être enregistrée.
 |---|---|
 | `donnees/` | Les 4 tables de la boutique en CSV : `pieces`, `compatibilites`, `stock`, `commandes` |
 | `site/index.html` | Page web de la boutique avec la bulle de chat `@n8n/chat` |
-| `consignes_a_copier.md` | Messages système, descriptions d'outils et expressions `$fromAI()` |
+| `docs/architecture.md` | Agents, outils, garde-fous et choix techniques |
 | `workflows/` | Workflows n8n exportés (agent simple, équipe d'agents) |
 | `compte-rendu/` | Tableau de tests (étape 8) et compte rendu |
 | `captures/` | Captures d'écran demandées |
