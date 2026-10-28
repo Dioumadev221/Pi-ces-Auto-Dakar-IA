@@ -1,0 +1,4 @@
+numero,client,telephone,ref_piece,quantite,montant_fcfa,ville,statut,date_commande
+CMD-0042,Fatou Sarr,770000001,AM-206-01,2,64000,Thies,expediee,2026-10-08
+CMD-0043,Moussa Diop,770000002,PF-COR-01,1,18500,Dakar,en_attente_validation,2026-10-11
+CMD-0044,Ibrahima Fall,770000003,BT-070-01,1,65000,Saint-Louis,livree,2026-10-02

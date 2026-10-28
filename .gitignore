@@ -1,0 +1,13 @@
+# Énoncé du TP (document de l'enseignant)
+enonce_TP.pdf
+*.pdf
+
+# Secrets : ne jamais versionner
+.env
+*.key
+*secret*
+*token*
+
+# Fichiers locaux
+.claude/
+Thumbs.db

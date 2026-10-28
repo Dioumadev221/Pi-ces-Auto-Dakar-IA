@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teranga Pièces Auto</title>
+  <!-- Style de la bulle de chat fournie par n8n -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet">
+  <style>
+    /* Couleurs de la bulle de chat */
+    :root {
+      --chat--color--primary: #0b6e4f;
+      --chat--color--secondary: #f2a900;
+      --chat--header--background: #0b6e4f;
+      --chat--header--color: #ffffff;
+      --chat--toggle--background: #0b6e4f;
+      --chat--message--user--background: #0b6e4f;
+      --chat--message--user--color: #ffffff;
+    }
+    /* Mise en page du site */
+    body { margin: 0; font-family: Arial, sans-serif; color: #1f2937; background: #f7f7f5; }
+    header { background: #0b6e4f; color: #ffffff; padding: 40px 24px; text-align: center; }
+    header h1 { margin: 0 0 8px; font-size: 2rem; }
+    main { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+    .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .carte { background: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+    .carte h3 { margin-top: 0; color: #0b6e4f; }
+    footer { text-align: center; padding: 24px; font-size: .9rem; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Teranga Pièces Auto</h1>
+    <p>Pièces détachées pour Toyota, Hyundai, Peugeot et Renault, livrées à Dakar et dans les régions.</p>
+  </header>
+  <main>
+    <h2>Nos rayons</h2>
+    <div class="grille">
+      <div class="carte"><h3>Freinage</h3><p>Plaquettes de frein avant.</p></div>
+      <div class="carte"><h3>Filtration</h3><p>Filtres à huile et à air.</p></div>
+      <div class="carte"><h3>Suspension</h3><p>Amortisseurs avant et arrière.</p></div>
+      <div class="carte"><h3>Électricité</h3><p>Batteries de 45 et 70 Ah.</p></div>
+    </div>
+    <p>Une question sur une pièce, un prix ou une commande ? Cliquez sur la bulle en bas à droite.</p>
+  </main>
+  <footer>Entreprise fictive créée pour un TP. Aucune commande réelle n'est traitée.</footer>
+
+  <!-- Bulle de chat reliée au workflow n8n -->
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+      webhookUrl: 'COLLEZ_ICI_LA_CHAT_URL',
+      mode: 'window',
+      showWelcomeScreen: false,
+      loadPreviousSession: false,
+      defaultLanguage: 'en',
+      initialMessages: [
+        'Bonjour et bienvenue chez Teranga Pièces Auto !',
+        'Indiquez la marque, le modèle et l\'année de votre véhicule : je vous aide à trouver la bonne pièce.'
+      ],
+      i18n: {
+        en: {
+          title: 'Teranga Pièces Auto',
+          subtitle: 'Assistant en ligne, réponse immédiate',
+          footer: '',
+          getStarted: 'Nouvelle conversation',
+          inputPlaceholder: 'Écrivez votre question…'
+        }
+      }
+    });
+  </script>
+</body>
+</html>

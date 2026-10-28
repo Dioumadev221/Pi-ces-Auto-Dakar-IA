@@ -1,0 +1,16 @@
+ref_piece,marque,modele,annee_debut,annee_fin
+PF-COR-01,Toyota,Corolla,2008,2013
+FH-COR-02,Toyota,Corolla,2002,2018
+FA-COR-01,Toyota,Corolla,2008,2018
+BT-070-01,Toyota,Corolla,2000,2020
+FH-HIL-01,Toyota,Hilux,2005,2015
+AM-HIL-02,Toyota,Hilux,2005,2015
+BT-070-01,Toyota,Hilux,2005,2020
+PF-ACC-02,Hyundai,Accent,2006,2017
+CD-ACC-01,Hyundai,Accent,2006,2011
+BT-045-02,Hyundai,Accent,2006,2018
+PF-206-03,Peugeot,206,1998,2010
+AM-206-01,Peugeot,206,1998,2010
+BT-045-02,Peugeot,206,1998,2010
+BG-CLI-01,Renault,Clio,2005,2012
+BT-045-02,Renault,Clio,2005,2019

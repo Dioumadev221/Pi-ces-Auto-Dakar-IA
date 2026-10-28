@@ -1,0 +1,13 @@
+ref,designation,categorie,marque_piece,prix_fcfa
+PF-COR-01,Plaquettes de frein avant,Freinage,Bosch,18500
+PF-ACC-02,Plaquettes de frein avant,Freinage,Valeo,16000
+PF-206-03,Plaquettes de frein avant,Freinage,Ferodo,15000
+FH-HIL-01,Filtre a huile,Filtration,Toyota,6500
+FH-COR-02,Filtre a huile,Filtration,Mann,5000
+FA-COR-01,Filtre a air,Filtration,Mann,7500
+AM-206-01,Amortisseur avant,Suspension,Monroe,32000
+AM-HIL-02,Amortisseur arriere,Suspension,KYB,38000
+BT-070-01,Batterie 70 Ah,Electricite,Varta,65000
+BT-045-02,Batterie 45 Ah,Electricite,Varta,48000
+CD-ACC-01,Kit courroie de distribution,Moteur,Gates,42000
+BG-CLI-01,Jeu de 4 bougies d allumage,Moteur,NGK,12000
