@@ -1,0 +1,292 @@
+{
+  "updatedAt": "2026-10-28T12:52:11.615Z",
+  "createdAt": "2026-10-28T12:52:11.615Z",
+  "id": "vDCqK6Uhy4TY1lx0",
+  "name": "Pieces Auto Dakar IA - Agent simple",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "335fc823-f23a-4dad-9134-1fc392bcb94e",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "a23fd459-757f-4f6b-ad56-a0788a6788e1",
+      "parameters": {
+        "options": {}
+      }
+    },
+    {
+      "id": "851ec1b0-b053-4827-b80e-d41c97528ca1",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "promptType": "auto",
+        "options": {
+          "systemMessage": "Tu es l'assistant client de Pieces Auto Dakar IA, vendeur en ligne de pieces\ndetachees automobiles a Dakar. Tu reponds en francais, poliment et\nbrievement. Les prix sont en FCFA.\nTu ne donnes jamais un prix, une disponibilite ou une compatibilite sans\nl'avoir lu avec un outil. Si l'information n'existe pas dans les tables,\ndis-le et propose de transmettre la demande a un conseiller.\nSi la marque, le modele ou l'annee du vehicule manque, demande-les avant\nde chercher.",
+          "maxIterations": 10
+        }
+      }
+    },
+    {
+      "id": "cc54dcf0-23d1-4bd6-ba54-b360a55bcda1",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        120,
+        240
+      ],
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JPXpDfztNGcgstVO",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "id": "f3cd474b-566a-4092-89b7-3137ea5cd151",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        280,
+        240
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "0779552e-992c-4ac4-b227-818cc3067cdd",
+      "name": "chercher_compatibilite",
+      "type": "n8n-nodes-base.dataTableTool",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        240
+      ],
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Retourne les references de pieces compatibles avec un vehicule pour une annee donnee. Parametres : marque (avec majuscule initiale : Toyota, Hyundai, Peugeot, Renault), modele (Corolla, Hilux, Accent, 206, Clio) et annee (nombre, ex. 2012). Ne retourne rien si aucune piece ne convient.",
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "TYzFROXxaism4zCS",
+          "cachedResultName": "compatibilites"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "marque",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('marque', 'Marque du vehicule, majuscule initiale, ex. Toyota', 'string') }}"
+            },
+            {
+              "keyName": "modele",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('modele', 'Modele du vehicule, ex. Corolla ou 206', 'string') }}"
+            },
+            {
+              "keyName": "annee_debut",
+              "condition": "lte",
+              "keyValue": "={{ $fromAI('annee', 'Annee du vehicule, ex. 2012', 'number') }}"
+            },
+            {
+              "keyName": "annee_fin",
+              "condition": "gte",
+              "keyValue": "={{ $fromAI('annee', 'Annee du vehicule, ex. 2012', 'number') }}"
+            }
+          ]
+        },
+        "returnAll": true
+      }
+    },
+    {
+      "id": "e93245a0-0ed1-43ea-9cd4-006b1b51aa15",
+      "name": "lire_piece",
+      "type": "n8n-nodes-base.dataTableTool",
+      "typeVersion": 1.1,
+      "position": [
+        600,
+        240
+      ],
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Retourne la designation, la categorie, la marque et le prix en FCFA d'une piece a partir de sa reference.",
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gZpBPDxn8jLMWWr0",
+          "cachedResultName": "pieces"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ref",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('ref', 'Reference de la piece, ex. PF-COR-01', 'string') }}"
+            }
+          ]
+        },
+        "returnAll": true
+      }
+    },
+    {
+      "id": "d4fd662e-9995-4463-918a-94014a0926ed",
+      "name": "lire_stock",
+      "type": "n8n-nodes-base.dataTableTool",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        240
+      ],
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Retourne la quantite disponible d'une piece a partir de sa reference. Quantite 0 = rupture de stock.",
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "eJupypznAI0HprhL",
+          "cachedResultName": "stock"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ref_piece",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('ref', 'Reference de la piece, ex. PF-COR-01', 'string') }}"
+            }
+          ]
+        },
+        "returnAll": true
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chercher_compatibilite": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lire_piece": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lire_stock": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": {},
+  "versionId": "f165b3ef-0c17-42ba-b810-17dc67b1318c",
+  "activeVersionId": null,
+  "versionCounter": 1,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-10-28T12:52:11.619Z",
+      "createdAt": "2026-10-28T12:52:11.619Z",
+      "role": "workflow:owner",
+      "workflowId": "vDCqK6Uhy4TY1lx0",
+      "projectId": "y7vPZ8t0gJfSHi8O",
+      "project": {
+        "updatedAt": "2026-10-28T12:34:45.966Z",
+        "createdAt": "2026-10-28T12:32:30.997Z",
+        "id": "y7vPZ8t0gJfSHi8O",
+        "name": "Diouma Dione <d.dione6@isepat.edu.sn>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "a793f39a-568d-4f54-b8b6-124fc38ca06e"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
+}
